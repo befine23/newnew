@@ -42,7 +42,8 @@ def main():
         scraper = get_scraper(source_config['name'], source_config['url'])
 
         try:
-            articles = scraper.scrape(max_articles=MAX_ARTICLES_PER_SOURCE)
+            max_articles = source_config.get('max_articles', MAX_ARTICLES_PER_SOURCE)
+            articles = scraper.scrape(max_articles=max_articles)
             print(f"   Found {len(articles)} articles")
 
             # Translate each article
