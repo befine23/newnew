@@ -26,6 +26,6 @@ NEWS_SOURCES = {
 # Default number of articles to scrape per source (if not specified)
 MAX_ARTICLES_PER_SOURCE = 3  # Total: 3+3+1 = 7 articles per day
 
-# Output settings
-OUTPUT_DIR = '../data/news'  # Relative to project root
+# Output settings (Note: main.py uses absolute path calculation)
+OUTPUT_DIR = 'data/news'
 OUTPUT_FORMAT = 'json'

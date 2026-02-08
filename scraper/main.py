@@ -9,16 +9,25 @@ from config import NEWS_SOURCES, MAX_ARTICLES_PER_SOURCE, OUTPUT_DIR
 from scrapers import get_scraper
 from translator import Translator
 
+# Calculate absolute path to output directory
+# Get the directory where this script is located (scraper/)
+SCRIPT_DIR = Path(__file__).parent
+# Get project root (parent of scraper/)
+PROJECT_ROOT = SCRIPT_DIR.parent
+# Construct absolute path to data/news/
+OUTPUT_PATH = PROJECT_ROOT / 'data' / 'news'
+
 
 def ensure_output_dir():
     """Create output directory if it doesn't exist"""
-    Path(OUTPUT_DIR).mkdir(parents=True, exist_ok=True)
+    OUTPUT_PATH.mkdir(parents=True, exist_ok=True)
+    print(f"Output directory: {OUTPUT_PATH}")
 
 
 def save_articles(articles: list, filename: str):
     """Save articles to JSON file"""
     ensure_output_dir()
-    filepath = os.path.join(OUTPUT_DIR, filename)
+    filepath = OUTPUT_PATH / filename
 
     with open(filepath, 'w', encoding='utf-8') as f:
         json.dump(articles, f, ensure_ascii=False, indent=2)
