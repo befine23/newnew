@@ -1,7 +1,0 @@
-{
-  "version": 2,
-  "buildCommand": "cd website && npm install && npm run build",
-  "outputDirectory": "website/out",
-  "framework": null,
-  "installCommand": "cd website && npm install"
-}
