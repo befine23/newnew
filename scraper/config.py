@@ -27,5 +27,5 @@ NEWS_SOURCES = {
 MAX_ARTICLES_PER_SOURCE = 3  # Total: 3+3+1 = 7 articles per day
 
 # Output settings
-OUTPUT_DIR = 'data/news'
+OUTPUT_DIR = '../data/news'  # Relative to project root
 OUTPUT_FORMAT = 'json'
