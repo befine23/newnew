@@ -1,23 +1,41 @@
 import NewsCard from '@/components/NewsCard';
+import SearchBar from '@/components/SearchBar';
 import { Article } from '@/types/article';
 
 async function getNews(): Promise<Article[]> {
   try {
-    // In production, this will read from the static JSON file
     const fs = require('fs');
     const path = require('path');
-    const filePath = path.join(process.cwd(), '..', 'data', 'news', 'latest.json');
+    const newsDir = path.join(process.cwd(), '..', 'data', 'news');
 
-    if (fs.existsSync(filePath)) {
-      const data = fs.readFileSync(filePath, 'utf8');
-      return JSON.parse(data);
+    if (!fs.existsSync(newsDir)) {
+      return [];
     }
+
+    const files = fs.readdirSync(newsDir);
+    const allArticles: Article[] = [];
+
+    // Read all JSON files except latest.json
+    for (const file of files) {
+      if (file.endsWith('.json') && file !== 'latest.json') {
+        const filePath = path.join(newsDir, file);
+        const data = fs.readFileSync(filePath, 'utf8');
+        const articles = JSON.parse(data);
+        allArticles.push(...articles);
+      }
+    }
+
+    // Sort by date, newest first
+    allArticles.sort((a, b) =>
+      new Date(b.published_date).getTime() - new Date(a.published_date).getTime()
+    );
+
+    // Return the 10 most recent articles
+    return allArticles.slice(0, 10);
   } catch (error) {
     console.error('Error loading news:', error);
+    return [];
   }
-
-  // Return empty array if no data
-  return [];
 }
 
 export default async function Home() {
@@ -44,6 +62,11 @@ export default async function Home() {
           </p>
         </div>
       </header>
+
+      {/* Search Bar */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <SearchBar />
+      </div>
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

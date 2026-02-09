@@ -1,4 +1,6 @@
 import { Article } from '@/types/article';
+import Link from 'next/link';
+import Image from 'next/image';
 
 interface NewsCardProps {
   article: Article;
@@ -7,6 +9,19 @@ interface NewsCardProps {
 export default function NewsCard({ article }: NewsCardProps) {
   return (
     <article className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+      {/* Article Image */}
+      {article.image_url && (
+        <div className="relative w-full h-48 bg-gray-200 dark:bg-gray-700">
+          <Image
+            src={article.image_url}
+            alt={article.title_zh || article.title}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        </div>
+      )}
+
       <div className="p-6">
         {/* Source Badge */}
         <div className="flex items-center justify-between mb-3">
@@ -23,26 +38,17 @@ export default function NewsCard({ article }: NewsCardProps) {
           {article.title_zh || article.title}
         </h2>
 
-        {/* Description */}
+        {/* Summary Preview */}
         <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
-          {article.description_zh || article.description}
+          {article.summary_zh || article.description_zh || article.description || ''}
         </p>
 
-        {/* Original Title (if translated) */}
-        {article.title_zh && (
-          <p className="text-sm text-gray-500 dark:text-gray-400 italic mb-4 line-clamp-1">
-            原標題: {article.title}
-          </p>
-        )}
-
-        {/* Read More Link */}
-        <a
-          href={article.url}
-          target="_blank"
-          rel="noopener noreferrer"
+        {/* Read More Link - Now links to detail page */}
+        <Link
+          href={`/news/${article.slug}`}
           className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium"
         >
-          閱讀更多
+          繼續閱讀
           <svg
             className="w-4 h-4 ml-2"
             fill="none"
@@ -56,7 +62,7 @@ export default function NewsCard({ article }: NewsCardProps) {
               d="M9 5l7 7-7 7"
             />
           </svg>
-        </a>
+        </Link>
       </div>
     </article>
   );
