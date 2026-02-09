@@ -12,13 +12,13 @@ NEWS_SOURCES = {
     'deadline': {
         'name': 'Deadline',
         'url': 'https://deadline.com/category/movies/',
-        'enabled': True,
+        'enabled': False,  # Temporarily disabled - website structure changed
         'max_articles': 1
     },
     'hollywoodreporter': {
         'name': 'The Hollywood Reporter',
         'url': 'https://www.hollywoodreporter.com/c/movies/',
-        'enabled': True,
+        'enabled': False,  # Temporarily disabled for testing
         'max_articles': 1
     }
 }
