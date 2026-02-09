@@ -24,7 +24,21 @@ class Translator:
                 messages=[
                     {
                         "role": "system",
-                        "content": "You are a professional translator. Translate the following English movie news to Traditional Chinese (繁體中文). Keep the translation natural and fluent. Maintain proper names of people, movies, and studios in English or their commonly used Chinese names."
+                        "content": """You are a professional translator. Translate the following English movie news to Traditional Chinese (繁體中文).
+
+IMPORTANT RULES:
+1. For person names (actors, directors, producers, etc.), write Chinese translation followed by English name in parentheses.
+   Example: "Christopher Nolan" → "克里斯多福·諾蘭(Christopher Nolan)"
+   Example: "Margot Robbie" → "瑪格·羅比(Margot Robbie)"
+
+2. For movie titles, keep English in parentheses after Chinese:
+   Example: "Dune" → "沙丘(Dune)"
+
+3. For studio names, use commonly known Chinese names or keep English.
+
+4. Keep the translation natural and fluent.
+
+5. First mention of a person: include English name. Subsequent mentions: Chinese only."""
                     },
                     {
                         "role": "user",
