@@ -7,24 +7,25 @@ NEWS_SOURCES = {
         'name': 'Variety',
         'url': 'https://variety.com/v/film/news/',
         'enabled': True,
-        'max_articles': 3
+        'max_articles': 1  # Only scrape 1 article per day
     },
     'deadline': {
         'name': 'Deadline',
         'url': 'https://deadline.com/category/movies/',
-        'enabled': True,
-        'max_articles': 3
+        'enabled': False,  # Temporarily disabled - website structure changed
+        'max_articles': 1
     },
     'hollywoodreporter': {
         'name': 'The Hollywood Reporter',
         'url': 'https://www.hollywoodreporter.com/c/movies/',
-        'enabled': True,
+        'enabled': False,  # Temporarily disabled for testing
         'max_articles': 1
     }
 }
 
-# Default number of articles to scrape per source (if not specified)
-MAX_ARTICLES_PER_SOURCE = 3  # Total: 3+3+1 = 7 articles per day
+# Strategy: Pick ONE random source per day, scrape 1 full article
+MAX_ARTICLES_PER_SOURCE = 1
+RANDOM_SOURCE_SELECTION = True  # Enable random source selection
 
 # Output settings (Note: main.py uses absolute path calculation)
 OUTPUT_DIR = 'data/news'

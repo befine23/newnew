@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 from typing import List, Dict
 import time
+from content_extractor import get_content_extractor
 
 class BaseScraper:
     """Base class for all scrapers"""
@@ -44,6 +45,7 @@ class VarietyScraper(BaseScraper):
 
         # Find article elements (this is a simplified example)
         article_elements = soup.find_all('article', limit=max_articles)
+        content_extractor = get_content_extractor(self.source_name)
 
         for article in article_elements:
             try:
@@ -52,14 +54,23 @@ class VarietyScraper(BaseScraper):
                 desc_elem = article.find('p')
 
                 if title_elem and link_elem:
+                    article_url = link_elem['href'] if link_elem['href'].startswith('http') else f"https://variety.com{link_elem['href']}"
+
                     article_data = {
                         'source': self.source_name,
                         'title': title_elem.get_text(strip=True),
-                        'url': link_elem['href'] if link_elem['href'].startswith('http') else f"https://variety.com{link_elem['href']}",
+                        'url': article_url,
                         'description': desc_elem.get_text(strip=True) if desc_elem else '',
                         'scraped_at': datetime.now().isoformat(),
                         'published_date': datetime.now().strftime('%Y-%m-%d')
                     }
+
+                    # Extract full article content
+                    print(f"   Extracting full content from: {article_url[:60]}...")
+                    full_content = content_extractor.extract_content(article_url)
+                    article_data['content'] = full_content.get('content', '')
+                    article_data['image_url'] = full_content.get('image_url', '')
+
                     articles.append(article_data)
             except Exception as e:
                 print(f"Error parsing article: {e}")
@@ -79,6 +90,7 @@ class DeadlineScraper(BaseScraper):
             return articles
 
         article_elements = soup.find_all('article', limit=max_articles)
+        content_extractor = get_content_extractor(self.source_name)
 
         for article in article_elements:
             try:
@@ -87,14 +99,23 @@ class DeadlineScraper(BaseScraper):
                 desc_elem = article.find('p')
 
                 if title_elem and link_elem:
+                    article_url = link_elem['href'] if link_elem['href'].startswith('http') else f"https://deadline.com{link_elem['href']}"
+
                     article_data = {
                         'source': self.source_name,
                         'title': title_elem.get_text(strip=True),
-                        'url': link_elem['href'] if link_elem['href'].startswith('http') else f"https://deadline.com{link_elem['href']}",
+                        'url': article_url,
                         'description': desc_elem.get_text(strip=True) if desc_elem else '',
                         'scraped_at': datetime.now().isoformat(),
                         'published_date': datetime.now().strftime('%Y-%m-%d')
                     }
+
+                    # Extract full article content
+                    print(f"   Extracting full content from: {article_url[:60]}...")
+                    full_content = content_extractor.extract_content(article_url)
+                    article_data['content'] = full_content.get('content', '')
+                    article_data['image_url'] = full_content.get('image_url', '')
+
                     articles.append(article_data)
             except Exception as e:
                 print(f"Error parsing article: {e}")
@@ -114,6 +135,7 @@ class HollywoodReporterScraper(BaseScraper):
             return articles
 
         article_elements = soup.find_all('article', limit=max_articles)
+        content_extractor = get_content_extractor(self.source_name)
 
         for article in article_elements:
             try:
@@ -122,14 +144,23 @@ class HollywoodReporterScraper(BaseScraper):
                 desc_elem = article.find('p')
 
                 if title_elem and link_elem:
+                    article_url = link_elem['href'] if link_elem['href'].startswith('http') else f"https://www.hollywoodreporter.com{link_elem['href']}"
+
                     article_data = {
                         'source': self.source_name,
                         'title': title_elem.get_text(strip=True),
-                        'url': link_elem['href'] if link_elem['href'].startswith('http') else f"https://www.hollywoodreporter.com{link_elem['href']}",
+                        'url': article_url,
                         'description': desc_elem.get_text(strip=True) if desc_elem else '',
                         'scraped_at': datetime.now().isoformat(),
                         'published_date': datetime.now().strftime('%Y-%m-%d')
                     }
+
+                    # Extract full article content
+                    print(f"   Extracting full content from: {article_url[:60]}...")
+                    full_content = content_extractor.extract_content(article_url)
+                    article_data['content'] = full_content.get('content', '')
+                    article_data['image_url'] = full_content.get('image_url', '')
+
                     articles.append(article_data)
             except Exception as e:
                 print(f"Error parsing article: {e}")

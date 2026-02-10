@@ -1,0 +1,16 @@
+[{
+  "id": "2026-02-04-variety-article-04",
+  "slug": "movie-news-article-feb-04",
+  "source": "Variety",
+  "title": "Major Film Industry News from February 04",
+  "title_zh": "2月04日重大電影產業新聞",
+  "url": "https://variety.com/2026/02/news-04/",
+  "description": "Breaking news in Hollywood",
+  "description_zh": "好萊塢突發新聞",
+  "content": "[Mock content for testing]",
+  "content_zh": "這是一篇測試文章，用於展示網站的文章列表和詳情頁面功能。內容包括電影產業的最新動態、導演訪談以及票房分析。",
+  "summary_zh": "這是一篇測試文章，用於展示網站的文章列表和詳情頁面功能。內容包括電影產業的最新動態...",
+  "image_url": "https://example.com/images/article-04.jpg",
+  "published_date": "2026-02-04",
+  "scraped_at": "2026-02-04T08:00:00"
+}]
